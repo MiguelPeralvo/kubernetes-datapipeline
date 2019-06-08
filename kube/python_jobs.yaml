@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: python-jobs
+spec:
+  template:
+    metadata:
+      name: python-jobs
+    spec:
+      containers:
+        - name: init-pipeline
+          image: busybox
+          command: ["/bin/sh", "-c"]
+          args:
+            - sleep 5s;
+              echo 'initiated pipeline';
+        - name: fetch-task
+          image: python_jobs:0.1
+          command: ["python3"]
+          args:
+            - /opt/jobs/fetch_universities.py
+        - name: finish-pipeline
+          image: busybox
+          command: ["/bin/sh", "-c"]
+          args:
+            - sleep 10s;
+              echo 'completed pipeline';
+      restartPolicy: Never
