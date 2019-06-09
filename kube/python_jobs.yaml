@@ -15,7 +15,8 @@ spec:
             - sleep 5s;
               echo 'initiated pipeline';
         - name: fetch-task
-          image: python_jobs:0.1
+          image: docker.io/lordastinus/python_jobs:0.1
+          imagePullPolicy: IfNotPresent
           command: ["python3"]
           args:
             - /opt/jobs/fetch_universities.py
